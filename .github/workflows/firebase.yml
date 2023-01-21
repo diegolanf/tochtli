@@ -1,0 +1,74 @@
+name: deploy
+on:
+  push:
+    branches: [ main ]
+jobs:
+  angular-unit-test:
+    runs-on: ubuntu-latest
+    container: cypress/browsers:node18.12.0-chrome106-ff106
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      - run: HUSKY=0 npm ci
+      - run: npm run test:ci
+  cypress-test:
+    runs-on: ubuntu-latest
+    container: cypress/browsers:node18.12.0-chrome106-ff106
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      - run: HUSKY=0 npm ci
+      - run: npm run e2e:ci
+  api-unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: 'api/package-lock.json'
+      - run: npm run install:functions:ci
+      - run: npm run test:functions
+  api-e2e-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: 'api/package-lock.json'
+      - run: npm run install:functions:ci
+      - run: npm run e2e:functions
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [ angular-unit-test, cypress-test, api-unit-test, api-e2e-test ]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: |
+            ./package-lock.json
+            api/package-lock.json
+      - run: npm ci
+      - run: npm run install:functions:ci
+      - run: npm run build:prod
+      - uses: w9jds/firebase-action@master
+        with:
+          args: functions:delete app --region us-central1 --force
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - uses: w9jds/firebase-action@master
+        with:
+          args: deploy
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
