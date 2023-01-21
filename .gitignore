@@ -62,3 +62,8 @@ Thumbs.db
 # Tests
 /api/coverage
 /api/.nyc_output
+
+# Firebase
+.firebase
+*.log
+

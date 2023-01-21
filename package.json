@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "run-p serve:angular:host serve:functions",
     "serve": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
@@ -11,8 +11,15 @@
     "lint": "ng lint",
     "prepare": "husky install",
     "e2e": "ng e2e",
+    "install:functions": "cd api && npm install",
+    "install:functions:ci": "cd api && npm ci",
+    "serve:angular:host": "ng serve --host 0.0.0.0",
+    "serve:functions": "cd api && npm run serve",
+    "serve:functions:watch": "cd api && npm run start:dev",
     "test:ci": "ng test --no-watch --no-progress --browsers ChromeHeadlessCI",
     "e2e:ci": "concurrently \"npm run serve\" \"wait-on http-get://localhost:4200 && npm run cypress:run\" --kill-others --success first",
+    "test:functions": "cd api && npm run test",
+    "e2e:functions": "cd api && npm run test:e2e",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
   },
@@ -58,6 +65,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "lint-staged": "^13.1.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "2.8.3",
     "typescript": "~4.9.4",
     "wait-on": "^7.0.1"
