@@ -1,0 +1,10 @@
+{
+  "*.ts": [
+    "npx replace \"from 'src/app\" \"from '@app\"",
+    "prettier -w --config .prettierrc",
+    "eslint --fix -c .eslintrc.base.json"
+  ],
+  "*.html": ["prettier -w --config .prettierrc"],
+  "*.scss": ["prettier -w --config .prettierrc"],
+  "*.json": ["prettier -w --config .prettierrc"]
+}

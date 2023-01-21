@@ -1,20 +1,22 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
+  "ignorePatterns": ["projects/**/*"],
+  "plugins": ["import", "no-relative-import-paths", "simple-import-sort"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
-      "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
-      ],
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["tsconfig.json"],
+        "createDefaultProgram": true
+      },
+      "extends": ["./.eslintrc.base.json"],
       "rules": {
+        "no-relative-import-paths/no-relative-import-paths": [
+          "error",
+          {
+            "allowSameFolder": true
+          }
+        ],
         "@angular-eslint/directive-selector": [
           "error",
           {
@@ -34,13 +36,16 @@
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
-      "extends": [
-        "plugin:@angular-eslint/template/recommended"
-      ],
-      "rules": {}
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "rules": {
+        "@angular-eslint/template/eqeqeq": [
+          "error",
+          {
+            "allowNullOrUndefined": true
+          }
+        ]
+      }
     }
   ]
 }
