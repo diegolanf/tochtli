@@ -24,6 +24,7 @@
     "target": "ES2022",
     "useDefineForClassFields": false
   },
+  "exclude": ["node_modules", "cypress", "cypress.config.ts"],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
