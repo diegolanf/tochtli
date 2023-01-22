@@ -1,14 +1,14 @@
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
+import { ScreenSizeService } from '@app/core/services/screen-size.service';
+import { PushModule } from '@rx-angular/template/push';
 import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navigation',
@@ -20,18 +20,15 @@ import { map, shareReplay } from 'rxjs/operators';
     MatListModule,
     MatSidenavModule,
     MatToolbarModule,
+    PushModule,
     RouterModule,
   ],
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigationComponent {
-  public isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(
-      map((result: BreakpointState) => result.matches),
-      shareReplay()
-    );
+  public mdDown$: Observable<boolean> = this.screenSizeService.mdDown$;
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private screenSizeService: ScreenSizeService) {}
 }
