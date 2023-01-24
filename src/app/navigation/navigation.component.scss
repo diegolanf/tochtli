@@ -1,17 +1,27 @@
-.sidenav-container {
-  height: 100%;
-}
-
-.sidenav {
-  width: 200px;
-}
-
-.sidenav .mat-toolbar {
+mat-toolbar {
   background: inherit;
-}
-
-.mat-toolbar.mat-primary {
+  height: 56px;
   position: sticky;
   top: 0;
-  z-index: 1;
+}
+
+mat-sidenav-container {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  mat-sidenav {
+    width: 200px;
+
+    mat-icon {
+      margin-right: 16px;
+    }
+  }
+}
+
+:host ::ng-deep .mat-drawer-inner-container {
+  display: flex;
+  flex-direction: column;
 }

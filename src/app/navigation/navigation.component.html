@@ -1,30 +1,31 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav
-    #drawer
-    class="sidenav"
-    fixedInViewport
-    [attr.role]="(mdDown$ | push) ? 'dialog' : 'navigation'"
-    [mode]="(mdDown$ | push) ? 'over' : 'side'"
-    [opened]="(mdDown$ | push) === false">
-    <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="mdDown$ | push">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-      <span>tochtli</span>
-    </mat-toolbar>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<ng-container *transloco="let t">
+  <mat-toolbar>
+    <button mat-icon-button (click)="drawer.toggle()" *ngIf="mdDown$ | async; else navigationMenu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <ng-template #navigationMenu>
+      <app-navigation-menu></app-navigation-menu>
+    </ng-template>
+    <span class="font-thin pl-4">tochtli</span>
+  </mat-toolbar>
+  <mat-sidenav-container>
+    <mat-sidenav #drawer class="flex-col">
+      <mat-nav-list class="grow">
+        <ng-container *ngFor="let item of navigationMenuItems">
+          <a mat-list-item [routerLink]="item.link">
+            <mat-icon matListItemIcon>
+              {{ item.icon }}
+            </mat-icon>
+            <span class="pr-2">{{ t(item.name) }}</span>
+          </a>
+        </ng-container>
+      </mat-nav-list>
+      <div class="cursor-default font-thin opacity-30 py-4 text-center text-sm select-none">
+        {{ t('general.version', { version }) }}
+      </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</ng-container>

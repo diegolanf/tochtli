@@ -35,12 +35,26 @@ $light-theme: mat.define-light-theme(
 @tailwind components;
 @tailwind utilities;
 
+app-root {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
 html,
-body {
+body,
+app-navigation,
+router-outlet {
   height: 100%;
 }
 
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.page-content {
+  padding: 20px;
 }

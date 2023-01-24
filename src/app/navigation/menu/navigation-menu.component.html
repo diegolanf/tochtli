@@ -1,0 +1,20 @@
+<ng-container *transloco="let t">
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu" class="navigation-menu">
+    <button
+      mat-menu-item
+      *ngFor="let item of navigationMenuItems"
+      [disabled]="item.requiresActiveRunner"
+      [routerLink]="item.link">
+      <mat-icon>
+        {{ item.icon }}
+      </mat-icon>
+      <span class="pr-2">{{ t(item.name) }}</span>
+    </button>
+    <div class="cursor-default font-thin opacity-30 pt-2 text-center text-sm select-none">
+      {{ t('general.version', { version }) }}
+    </div>
+  </mat-menu>
+</ng-container>

@@ -6,6 +6,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { NavigationComponent } from './navigation.component';
 
@@ -24,6 +25,7 @@ describe('NavigationComponent', () => {
         MatToolbarModule,
         NavigationComponent,
         NoopAnimationsModule,
+        RouterTestingModule,
       ],
     }).compileComponents();
   }));

@@ -1,1 +1,6 @@
-{}
+{
+  "general.version": "Version: {{version}}",
+  "navigation.explore": "Explore",
+  "navigation.myRoutines": "My routines",
+  "navigation.runner": "Runner"
+}
