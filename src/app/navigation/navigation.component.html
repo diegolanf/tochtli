@@ -13,7 +13,7 @@
       <mat-nav-list class="grow">
         <ng-container *ngFor="let item of navigationMenuItems">
           <a mat-list-item [routerLink]="item.link">
-            <mat-icon matListItemIcon>
+            <mat-icon matListItemIcon color="primary">
               {{ item.icon }}
             </mat-icon>
             <span class="pr-2">{{ t(item.name) }}</span>
