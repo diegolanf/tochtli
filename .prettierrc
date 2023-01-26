@@ -9,5 +9,6 @@
   "bracketSameLine": true,
   "endOfLine": "lf",
   "trailingComma": "es5",
-  "useTabs": false
+  "useTabs": false,
+  "htmlWhitespaceSensitivity": "ignore"
 }
