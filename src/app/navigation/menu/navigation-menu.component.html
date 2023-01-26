@@ -3,11 +3,7 @@
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu" class="navigation-menu">
-    <button
-      mat-menu-item
-      *ngFor="let item of navigationMenuItems"
-      [disabled]="item.requiresActiveRunner"
-      [routerLink]="item.link">
+    <button mat-menu-item *ngFor="let item of navigationMenuItems" [routerLink]="item.link">
       <mat-icon>
         {{ item.icon }}
       </mat-icon>
