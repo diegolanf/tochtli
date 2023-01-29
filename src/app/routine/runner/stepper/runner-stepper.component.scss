@@ -1,0 +1,12 @@
+:host ::ng-deep {
+  mat-stepper {
+    background-color: transparent;
+
+    mat-step-header {
+      user-select: none;
+      pointer-events: none;
+      width: 24px;
+      border-radius: 36px;
+    }
+  }
+}

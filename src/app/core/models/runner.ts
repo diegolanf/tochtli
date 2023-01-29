@@ -46,10 +46,13 @@ export class Runner implements OnDestroy {
   public readonly currentStep$: Observable<RoutineStep | undefined>;
   public readonly nextStep$: Observable<RoutineStep | undefined>;
 
+  public readonly initialState$: Observable<boolean>;
+  public readonly playing$: Observable<boolean>;
   public readonly completed$: Observable<boolean>;
 
   private readonly factory = new RxActionFactory<RunnerActions>();
   private readonly state = new RxState<RunnerState>();
+  private readonly state$: Observable<RunnerState> = this.state.select();
 
   private readonly actions = this.factory.create();
 
@@ -74,7 +77,14 @@ export class Runner implements OnDestroy {
       map(([current, routine]: [number, Routine]) => routine.steps[current + 1])
     );
 
-    this.completed$ = this.state.select().pipe(
+    this.initialState$ = this.state$.pipe(
+      map((state: RunnerState) => state.currentStepIndex === 0 && state.playing === false),
+      distinctUntilChanged()
+    );
+
+    this.playing$ = this.state.select('playing');
+
+    this.completed$ = this.state$.pipe(
       map(
         (state: RunnerState) =>
           state.countdown === 0 && state.currentStepIndex === state.routine?.steps.length - 1
@@ -129,7 +139,7 @@ export class Runner implements OnDestroy {
         // Countdown
         this.actions.setCoundown$.pipe(
           switchMap((setCountdown: number) =>
-            this.state.select('playing').pipe(
+            this.playing$.pipe(
               switchMap((playing: boolean) =>
                 playing ? interval(1000).pipe(map(() => -1)) : EMPTY
               ),

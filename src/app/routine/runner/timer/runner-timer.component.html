@@ -1,0 +1,14 @@
+<ng-container *ngIf="runner">
+  <button mat-mini-fab color="primary" (click)="runner.previous()">
+    <mat-icon>skip_previous</mat-icon>
+  </button>
+  <button mat-mini-fab color="primary" (click)="runner.play()">
+    <mat-icon>play_arrow</mat-icon>
+  </button>
+  <button mat-mini-fab color="primary" (click)="runner.pause()">
+    <mat-icon>pause</mat-icon>
+  </button>
+  <button mat-mini-fab color="primary" (click)="runner.next()">
+    <mat-icon>skip_next</mat-icon>
+  </button>
+</ng-container>

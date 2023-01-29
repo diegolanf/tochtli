@@ -1,0 +1,19 @@
+<mat-stepper #stepper *ngIf="runner" [linear]="false">
+  <ng-template matStepperIcon="edit">
+    <mat-icon>play_arrow</mat-icon>
+  </ng-template>
+  <ng-template matStepperIcon="last">
+    <mat-icon>done_all</mat-icon>
+  </ng-template>
+  <ng-container *rxLet="runner.routine$; let routine">
+    <ng-container *rxLet="runner.currentStep$; let currentStep">
+      <mat-step
+        *ngFor="let activity of routine.activities; index as i"
+        [completed]="stepper.selectedIndex > i || (runner.completed$ | async)"
+        [state]="(runner.completed$ | async) ? 'last' : 'number'"
+        [color]="
+          currentStep?.isBreak && currentStep?.index === i ? 'accent' : 'primary'
+        "></mat-step>
+    </ng-container>
+  </ng-container>
+</mat-stepper>
