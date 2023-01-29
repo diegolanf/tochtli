@@ -20,3 +20,10 @@ export const MockRoutineDto: RoutineDto = {
     },
   ],
 };
+
+export const MockEmptyRoutineDto: RoutineDto = {
+  id: '2',
+  name: 'Routine 2',
+  globalBreakDuration: 10,
+  activities: [],
+};
