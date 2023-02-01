@@ -40,7 +40,7 @@
     "@ngneat/transloco": "^4.2.2",
     "@rx-angular/cdk": "1.0.0",
     "@rx-angular/state": "^1.7.0",
-    "@rx-angular/template": "^1.0.0-rc.5",
+    "@rx-angular/template": "^1.0.0",
     "luxon": "^3.2.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

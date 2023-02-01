@@ -4,7 +4,7 @@
   </button>
   <mat-menu #menu="matMenu" class="navigation-menu">
     <a mat-menu-item *ngFor="let item of navigationMenuItems" [routerLink]="item.link">
-      <mat-icon color="primary">
+      <mat-icon>
         {{ item.icon }}
       </mat-icon>
       <span class="pr-2">{{ t(item.name) }}</span>
