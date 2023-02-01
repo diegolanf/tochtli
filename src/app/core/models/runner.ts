@@ -78,7 +78,12 @@ export class Runner implements OnDestroy {
     );
 
     this.initialState$ = this.state$.pipe(
-      map((state: RunnerState) => state.currentStepIndex === 0 && state.playing === false),
+      map(
+        (state: RunnerState) =>
+          state.countdown === state.routine.steps[0]?.duration.as('seconds') &&
+          state.currentStepIndex === 0 &&
+          state.playing === false
+      ),
       distinctUntilChanged()
     );
 
@@ -189,7 +194,7 @@ export class Runner implements OnDestroy {
   }
 
   public previous(): void {
-    if (this.state.get('currentStepIndex') === 0 && this.state.get('playing') === true) {
+    if (this.state.get('currentStepIndex') === 0) {
       this.actions.reset();
     } else {
       this.actions.previousStep();

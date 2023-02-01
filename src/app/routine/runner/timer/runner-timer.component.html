@@ -1,14 +1,49 @@
-<ng-container *ngIf="runner">
-  <button mat-mini-fab color="primary" (click)="runner.previous()">
-    <mat-icon>skip_previous</mat-icon>
-  </button>
-  <button mat-mini-fab color="primary" (click)="runner.play()">
-    <mat-icon>play_arrow</mat-icon>
-  </button>
-  <button mat-mini-fab color="primary" (click)="runner.pause()">
-    <mat-icon>pause</mat-icon>
-  </button>
-  <button mat-mini-fab color="primary" (click)="runner.next()">
-    <mat-icon>skip_next</mat-icon>
-  </button>
-</ng-container>
+<div *ngIf="runner" class="flex flex-col items-center h-fit w-fit">
+  <div class="p-2 flex gap-2">
+    <button
+      (click)="runner.previous()"
+      [disabled]="(runner.initialState$ | async) || (isEmpty$ | async)"
+      color="primary"
+      mat-mini-fab>
+      <mat-icon>skip_previous</mat-icon>
+    </button>
+    <div class="flex gap-1">
+      <button
+        (click)="runner.play()"
+        [disabled]="(runner.playing$ | async) || (runner.completed$ | async) || (isEmpty$ | async)"
+        class="play"
+        color="primary"
+        mat-mini-fab>
+        <mat-icon>play_arrow</mat-icon>
+      </button>
+      <button
+        (click)="runner.pause()"
+        [disabled]="(runner.playing$ | async) !== true"
+        class="pause"
+        color="primary"
+        mat-mini-fab>
+        <mat-icon>pause</mat-icon>
+      </button>
+    </div>
+
+    <button
+      (click)="runner.next()"
+      [disabled]="(runner.completed$ | async) || (isEmpty$ | async)"
+      color="primary"
+      mat-mini-fab>
+      <mat-icon>skip_next</mat-icon>
+    </button>
+  </div>
+  <div class="timer-container relative h-170 w-170 m-2">
+    <span class="background-doughnut absolute"></span>
+    <div class="p-[10px]">
+      <span class="shadow-doughnut absolute p-[5px]"></span>
+      <mat-progress-spinner
+        [color]="(isBreak$ | async) ? 'accent' : 'primary'"
+        [diameter]="150"
+        [value]="spinnerValue$ | async"
+        class="progress"
+        mode="determinate"></mat-progress-spinner>
+    </div>
+  </div>
+</div>

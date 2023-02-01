@@ -14,7 +14,7 @@ export interface Activity {
   customBreakDuration?: Duration;
 }
 
-export const convertDtoTOActivity = (dto: ActivityDto): Activity => ({
+export const convertDtoToActivity = (dto: ActivityDto): Activity => ({
   name: dto.name,
   description: dto.description,
   duration: Duration.fromObject({ seconds: dto.duration }),

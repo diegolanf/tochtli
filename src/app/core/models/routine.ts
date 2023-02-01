@@ -1,7 +1,7 @@
 import { Duration } from 'luxon';
 import { map, Observable } from 'rxjs';
 
-import { Activity, ActivityDto, convertDtoTOActivity } from './activity';
+import { Activity, ActivityDto, convertDtoToActivity } from './activity';
 
 export interface StepTypeMetadata {
   duration: Duration;
@@ -53,7 +53,7 @@ export class Routine {
   constructor(routine: RoutineDto) {
     this.id = routine.id;
     this.name = routine.name;
-    this.activities = routine.activities.map(convertDtoTOActivity);
+    this.activities = routine.activities.map(convertDtoToActivity);
     this.steps = this.activities.reduce((acc: RoutineStep[], activity: Activity, index: number) => {
       acc.push({
         name: activity.name,

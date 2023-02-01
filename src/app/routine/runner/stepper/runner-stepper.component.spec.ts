@@ -1,6 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatIconModule } from '@angular/material/icon';
-import { MatStepperModule } from '@angular/material/stepper';
 
 import { RunnerStepperComponent } from './runner-stepper.component';
 
@@ -10,7 +8,7 @@ describe('RunnerStepperComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatIconModule, MatStepperModule, RunnerStepperComponent],
+      imports: [RunnerStepperComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RunnerStepperComponent);

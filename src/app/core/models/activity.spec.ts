@@ -1,6 +1,6 @@
 import { Duration } from 'luxon';
 
-import { ActivityDto, convertDtoTOActivity } from './activity';
+import { ActivityDto, convertDtoToActivity } from './activity';
 
 const MockActivityDto: ActivityDto = {
   name: 'Activity 1',
@@ -9,21 +9,21 @@ const MockActivityDto: ActivityDto = {
   customBreakDuration: 20,
 };
 
-describe('convertDtoTOActivity', () => {
+describe('convertDtoToActivity', () => {
   it('should return an activity containing name', () => {
-    expect(convertDtoTOActivity(MockActivityDto).name).toEqual(MockActivityDto.name);
+    expect(convertDtoToActivity(MockActivityDto).name).toEqual(MockActivityDto.name);
   });
   it('should return an activity containing description', () => {
-    expect(convertDtoTOActivity(MockActivityDto).description).toEqual(MockActivityDto.description);
+    expect(convertDtoToActivity(MockActivityDto).description).toEqual(MockActivityDto.description);
   });
 
   it('should convert duration value to 30 seconds Duration', () => {
-    expect(convertDtoTOActivity(MockActivityDto).duration).toBeInstanceOf(Duration);
-    expect(convertDtoTOActivity(MockActivityDto).duration.as('seconds')).toEqual(30);
+    expect(convertDtoToActivity(MockActivityDto).duration).toBeInstanceOf(Duration);
+    expect(convertDtoToActivity(MockActivityDto).duration.as('seconds')).toEqual(30);
   });
 
   it('should convert custom duration value to 20 seconds Duration', () => {
-    expect(convertDtoTOActivity(MockActivityDto).customBreakDuration).toBeInstanceOf(Duration);
-    expect(convertDtoTOActivity(MockActivityDto).customBreakDuration?.as('seconds')).toEqual(20);
+    expect(convertDtoToActivity(MockActivityDto).customBreakDuration).toBeInstanceOf(Duration);
+    expect(convertDtoToActivity(MockActivityDto).customBreakDuration?.as('seconds')).toEqual(20);
   });
 });

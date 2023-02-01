@@ -1,6 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 
 import { RunnerTimerComponent } from './runner-timer.component';
 
@@ -10,7 +8,7 @@ describe('RunnerTimerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatButtonModule, MatIconModule, RunnerTimerComponent],
+      imports: [RunnerTimerComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RunnerTimerComponent);
