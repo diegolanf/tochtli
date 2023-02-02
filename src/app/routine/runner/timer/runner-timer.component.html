@@ -25,7 +25,6 @@
         <mat-icon>pause</mat-icon>
       </button>
     </div>
-
     <button
       (click)="runner.next()"
       [disabled]="(runner.completed$ | async) || (isEmpty$ | async)"
@@ -34,7 +33,12 @@
       <mat-icon>skip_next</mat-icon>
     </button>
   </div>
-  <div class="timer-container relative h-170 w-170 m-2">
+  <div class="relative h-170 w-170 m-2">
+    <div class="absolute flex items-center justify-center h-full w-full">
+      <span class="max-w-[50%] text-ellipsis overflow-hidden font-mono font-thin select-none">
+        {{ runner.countdown$ | async | secondsToTime }}
+      </span>
+    </div>
     <span class="background-doughnut absolute"></span>
     <div class="p-[10px]">
       <span class="shadow-doughnut absolute p-[5px]"></span>

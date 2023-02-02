@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Routine, RoutineStep } from '@app/core/models/routine';
 import { Runner } from '@app/core/models/runner';
+import { SecondsToTimePipe } from '@app/shared/pipes/seconds-to-time.pipe';
 import { SharedModule } from '@app/shared/shared.module';
 import { RxState } from '@rx-angular/state';
 import { map, Observable, of, switchMap } from 'rxjs';
@@ -17,7 +18,13 @@ export interface RunnerTimerComponentState {
 @Component({
   selector: 'app-runner-timer',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, MatProgressSpinnerModule, SharedModule],
+  imports: [
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    SecondsToTimePipe,
+    SharedModule,
+  ],
   templateUrl: './runner-timer.component.html',
   styleUrls: ['./runner-timer.component.scss'],
   providers: [RxState],

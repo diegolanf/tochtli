@@ -41,6 +41,12 @@ $light-theme: mat.define-light-theme(
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+  }
+}
+
 app-root {
   position: fixed;
   height: 100%;
@@ -58,7 +64,6 @@ router-outlet {
 
 body {
   margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
 .page-content {

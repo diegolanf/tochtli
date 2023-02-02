@@ -13,6 +13,7 @@ describe('convertDtoToActivity', () => {
   it('should return an activity containing name', () => {
     expect(convertDtoToActivity(MockActivityDto).name).toEqual(MockActivityDto.name);
   });
+
   it('should return an activity containing description', () => {
     expect(convertDtoToActivity(MockActivityDto).description).toEqual(MockActivityDto.description);
   });
