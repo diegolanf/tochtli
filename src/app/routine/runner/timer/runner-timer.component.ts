@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -31,6 +31,8 @@ export interface RunnerTimerComponentState {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RunnerTimerComponent implements OnInit {
+  @HostBinding('class') public class = 'block h-fit w-fit';
+
   @Input() public runner?: Runner;
 
   public readonly isBreak$: Observable<boolean> = this.state.select('isBreak');

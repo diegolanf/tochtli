@@ -2,5 +2,10 @@
   "general.version": "Version: {{version}}",
   "navigation.explore": "Explore",
   "navigation.myRoutines": "My routines",
-  "navigation.runner": "Runner"
+  "navigation.runner": "Runner",
+  "routine.model.break": "Break",
+  "routine.runner.description.endOfRoutine": "End of routine",
+  "routine.runner.description.from": " from ",
+  "routine.runner.description.next": "Next",
+  "routine.runner.description.routineCompleted": "Routine completed"
 }

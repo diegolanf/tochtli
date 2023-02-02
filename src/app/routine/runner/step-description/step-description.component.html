@@ -1,0 +1,27 @@
+<ng-container *ngIf="runner">
+  <ng-container *transloco="let t">
+    <div class="text-3xl">
+      {{ t(currentStep$ | push) }}
+    </div>
+    <div class="text-xl opacity-40">
+      {{ t('routine.runner.description.next') }}:
+      {{ t(nextStep$ | push) }}
+    </div>
+    <ng-container *rxLet="totalSteps$; let totalSteps">
+      <div *ngIf="totalSteps > 0" class="mt-2">
+        {{
+          ((runner.currentStepIndex$ | push) ?? 0) +
+            1 +
+            t('routine.runner.description.from') +
+            totalSteps
+        }}
+      </div>
+    </ng-container>
+    <ng-container *rxLet="runner.currentStep$; let currentStep">
+      <div
+        *ngIf="currentStep?.description"
+        [innerHTML]="currentStep?.description ?? ''"
+        class="mt-4"></div>
+    </ng-container>
+  </ng-container>
+</ng-container>
