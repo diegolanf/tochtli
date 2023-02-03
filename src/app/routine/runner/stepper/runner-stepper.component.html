@@ -9,8 +9,8 @@
     <ng-container *rxLet="runner.currentStep$; let currentStep">
       <mat-step
         *ngFor="let activity of routine.activities; index as i"
-        [completed]="stepper.selectedIndex > i || (runner.completed$ | async)"
-        [state]="(runner.completed$ | async) ? 'last' : 'number'"
+        [completed]="stepper.selectedIndex > i || (runner.completed$ | push)"
+        [state]="(runner.completed$ | push) ? 'last' : 'number'"
         [color]="
           currentStep?.isBreak && currentStep?.index === i ? 'accent' : 'primary'
         "></mat-step>

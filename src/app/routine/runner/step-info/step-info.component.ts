@@ -7,22 +7,22 @@ import { LetModule } from '@rx-angular/template/let';
 import { PushModule } from '@rx-angular/template/push';
 import { combineLatest, map, Observable } from 'rxjs';
 
-export interface StepDescriptionComponentState {
+export interface StepInfoComponentState {
   currentStep: string;
   nextStep: string;
   totalSteps: number;
 }
 
 @Component({
-  selector: 'app-step-description',
+  selector: 'app-step-info',
   standalone: true,
   imports: [LetModule, PushModule, SharedModule],
-  templateUrl: './step-description.component.html',
-  styleUrls: ['./step-description.component.scss'],
+  templateUrl: './step-info.component.html',
+  styleUrls: ['./step-info.component.scss'],
   providers: [RxState],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StepDescriptionComponent implements OnInit {
+export class StepInfoComponent implements OnInit {
   @HostBinding('class') public class = 'block font-thin p-2';
   @Input() public runner?: Runner;
 
@@ -30,7 +30,7 @@ export class StepDescriptionComponent implements OnInit {
   public nextStep$: Observable<string> = this.state.select('nextStep');
   public totalSteps$: Observable<number> = this.state.select('totalSteps');
 
-  constructor(private readonly state: RxState<StepDescriptionComponentState>) {}
+  constructor(private readonly state: RxState<StepInfoComponentState>) {}
 
   ngOnInit(): void {
     if (this.runner) {

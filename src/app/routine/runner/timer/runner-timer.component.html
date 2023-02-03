@@ -2,7 +2,7 @@
   <div class="p-2 flex gap-2">
     <button
       (click)="runner.previous()"
-      [disabled]="(runner.initialState$ | async) || (isEmpty$ | async)"
+      [disabled]="(runner.initialState$ | push) || (isEmpty$ | push)"
       color="primary"
       mat-mini-fab>
       <mat-icon>skip_previous</mat-icon>
@@ -10,7 +10,7 @@
     <div class="flex gap-1">
       <button
         (click)="runner.play()"
-        [disabled]="(runner.playing$ | async) || (runner.completed$ | async) || (isEmpty$ | async)"
+        [disabled]="(runner.playing$ | push) || (runner.completed$ | push) || (isEmpty$ | push)"
         class="play"
         color="primary"
         mat-mini-fab>
@@ -18,7 +18,7 @@
       </button>
       <button
         (click)="runner.pause()"
-        [disabled]="(runner.playing$ | async) !== true"
+        [disabled]="(runner.playing$ | push) !== true"
         class="pause"
         color="primary"
         mat-mini-fab>
@@ -27,7 +27,7 @@
     </div>
     <button
       (click)="runner.next()"
-      [disabled]="(runner.completed$ | async) || (isEmpty$ | async)"
+      [disabled]="(runner.completed$ | push) || (isEmpty$ | push)"
       color="primary"
       mat-mini-fab>
       <mat-icon>skip_next</mat-icon>
@@ -36,16 +36,16 @@
   <div class="relative h-170 w-170 m-2">
     <div class="absolute flex items-center justify-center h-full w-full">
       <span class="max-w-[50%] text-ellipsis overflow-hidden font-mono font-thin select-none">
-        {{ runner.countdown$ | async | secondsToTime }}
+        {{ runner.countdown$ | push | secondsToTime }}
       </span>
     </div>
     <span class="background-doughnut absolute"></span>
     <div class="p-[10px]">
       <span class="shadow-doughnut absolute p-[5px]"></span>
       <mat-progress-spinner
-        [color]="(isBreak$ | async) ? 'accent' : 'primary'"
+        [color]="(isBreak$ | push) ? 'accent' : 'primary'"
         [diameter]="150"
-        [value]="spinnerValue$ | async"
+        [value]="spinnerValue$ | push"
         class="progress"
         mode="determinate"></mat-progress-spinner>
     </div>

@@ -1,4 +1,15 @@
-<app-runner-timer [runner]="runner"></app-runner-timer>
-<app-step-description [runner]="runner"></app-step-description>
 <mat-progress-bar [value]="runner.progress$ | push"></mat-progress-bar>
-<app-runner-stepper [runner]="runner"></app-runner-stepper>
+<div class="flex flex-col sm:flex-row items-center sm:items-start">
+  <app-runner-timer [runner]="runner" class="p-6"></app-runner-timer>
+  <div
+    class="flex flex-col px-10 sm:p-6 justify-center lg:justify-start sm:min-h-[290px] w-full min-w-[350px]">
+    <app-step-info [runner]="runner"></app-step-info>
+    <app-runner-stepper class="max-lg:hidden" [runner]="runner"></app-runner-stepper>
+    <ng-container *rxLet="runner.currentStep$; let currentStep">
+      <div
+        *ngIf="currentStep?.description"
+        [innerHTML]="currentStep?.description ?? ''"
+        class="p-2"></div>
+    </ng-container>
+  </div>
+</div>

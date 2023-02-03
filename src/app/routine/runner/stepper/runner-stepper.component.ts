@@ -7,11 +7,12 @@ import { Runner } from '@app/core/models/runner';
 import { SharedModule } from '@app/shared/shared.module';
 import { RxEffects } from '@rx-angular/state/effects';
 import { LetModule } from '@rx-angular/template/let';
+import { PushModule } from '@rx-angular/template/push';
 
 @Component({
   selector: 'app-runner-stepper',
   standalone: true,
-  imports: [LetModule, MatIconModule, MatStepperModule, SharedModule],
+  imports: [LetModule, MatIconModule, MatStepperModule, PushModule, SharedModule],
   templateUrl: './runner-stepper.component.html',
   styleUrls: ['./runner-stepper.component.scss'],
   providers: [

@@ -17,11 +17,5 @@
         }}
       </div>
     </ng-container>
-    <ng-container *rxLet="runner.currentStep$; let currentStep">
-      <div
-        *ngIf="currentStep?.description"
-        [innerHTML]="currentStep?.description ?? ''"
-        class="mt-4"></div>
-    </ng-container>
   </ng-container>
 </ng-container>
