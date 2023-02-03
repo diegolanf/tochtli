@@ -5,7 +5,7 @@ import { SharedModule } from '@app/shared/shared.module';
 import { RxState } from '@rx-angular/state';
 import { LetModule } from '@rx-angular/template/let';
 import { PushModule } from '@rx-angular/template/push';
-import { map, Observable, of, switchMap } from 'rxjs';
+import { combineLatest, map, Observable } from 'rxjs';
 
 export interface StepDescriptionComponentState {
   currentStep: string;
@@ -36,28 +36,26 @@ export class StepDescriptionComponent implements OnInit {
     if (this.runner) {
       this.state.connect(
         'currentStep',
-        this.runner.completed$.pipe(
-          switchMap((completed: boolean) =>
+        combineLatest([this.runner.completed$, this.runner.currentStep$]).pipe(
+          map(([completed, routineStep]: [boolean, RoutineStep | undefined]) =>
             completed
-              ? of('routine.runner.description.routineCompleted')
-              : this.runner?.currentStep$.pipe(
-                  map((routineStep?: RoutineStep) => (routineStep ? routineStep.name : '-'))
-                ) ?? of('-')
+              ? 'routine.runner.description.routineCompleted'
+              : routineStep
+              ? routineStep.name
+              : '-'
           )
         )
       );
 
       this.state.connect(
         'nextStep',
-        this.runner.completed$.pipe(
-          switchMap((completed: boolean) =>
+        combineLatest([this.runner.completed$, this.runner.nextStep$]).pipe(
+          map(([completed, routineStep]: [boolean, RoutineStep | undefined]) =>
             completed
-              ? of('-')
-              : this.runner?.nextStep$.pipe(
-                  map((routineStep?: RoutineStep) =>
-                    routineStep ? routineStep.name : 'routine.runner.description.endOfRoutine'
-                  )
-                ) ?? of('-')
+              ? '-'
+              : routineStep
+              ? routineStep.name
+              : 'routine.runner.description.endOfRoutine'
           )
         )
       );

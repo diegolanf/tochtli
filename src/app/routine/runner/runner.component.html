@@ -1,3 +1,4 @@
 <app-runner-timer [runner]="runner"></app-runner-timer>
 <app-step-description [runner]="runner"></app-step-description>
+<mat-progress-bar [value]="runner.progress$ | push"></mat-progress-bar>
 <app-runner-stepper [runner]="runner"></app-runner-stepper>

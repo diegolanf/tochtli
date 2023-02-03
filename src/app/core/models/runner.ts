@@ -29,6 +29,7 @@ export interface RunnerActions {
   play: boolean;
   nextStep: void;
   previousStep: void;
+  restartStep: void;
   reset: void;
   setRoutine: Routine;
   setCoundown: number;
@@ -41,6 +42,7 @@ export class Runner implements OnDestroy {
 
   public readonly countdown$: Observable<number>;
   public readonly countdownComplete$: Observable<void>;
+  public readonly progress$: Observable<number>;
 
   public readonly currentStepIndex$: Observable<number>;
   public readonly currentStep$: Observable<RoutineStep | undefined>;
@@ -64,6 +66,19 @@ export class Runner implements OnDestroy {
     this.countdownComplete$ = this.countdown$.pipe(
       filter((countdown: number) => countdown === 0),
       map(() => undefined)
+    );
+
+    this.progress$ = this.state$.pipe(
+      map(
+        (state: RunnerState) =>
+          ((state.routine.steps
+            .filter((_: RoutineStep, index: number) => index <= state.currentStepIndex)
+            .reduce((acc: number, step: RoutineStep) => acc + step.duration.as('seconds'), 0) -
+            state.countdown) /
+            state.routine.metadata.steps.duration.as('seconds')) *
+          100
+      ),
+      distinctUntilChanged()
     );
 
     this.currentStepIndex$ = this.state.select('currentStepIndex');
@@ -161,7 +176,9 @@ export class Runner implements OnDestroy {
     );
 
     this.state.hold(
-      this.actions.reset$.pipe(switchMap(() => this.currentStep$)),
+      merge(this.actions.reset$, this.actions.restartStep$).pipe(
+        switchMap(() => this.currentStep$)
+      ),
       (current: RoutineStep | undefined) =>
         this.actions.setCoundown(current?.duration.as('seconds') ?? 0)
     );
@@ -197,7 +214,16 @@ export class Runner implements OnDestroy {
     if (this.state.get('currentStepIndex') === 0) {
       this.actions.reset();
     } else {
-      this.actions.previousStep();
+      if (
+        this.state
+          .get('routine')
+          .steps[this.state.get('currentStepIndex')].duration.as('seconds') !==
+        this.state.get('countdown')
+      ) {
+        this.actions.restartStep();
+      } else {
+        this.actions.previousStep();
+      }
     }
   }
 }
