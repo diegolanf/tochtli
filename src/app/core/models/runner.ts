@@ -103,11 +103,12 @@ export class Runner implements OnDestroy {
     );
 
     this.playing$ = this.state.select('playing');
-
     this.completed$ = this.state$.pipe(
       map(
         (state: RunnerState) =>
-          state.countdown === 0 && state.currentStepIndex === state.routine?.steps.length - 1
+          state.countdown === 0 &&
+          state.currentStepIndex === state.routine?.steps.length - 1 &&
+          state.playing === false
       ),
       distinctUntilChanged()
     );
@@ -115,16 +116,18 @@ export class Runner implements OnDestroy {
     this.state.connect(
       'playing',
       merge(
-        this.actions.play$.pipe(startWith(false)),
+        this.actions.play$.pipe(
+          withLatestFrom(this.completed$),
+          filter(([, completed]: [boolean, boolean]) => !completed),
+          map(([play]: [boolean, boolean]) => play),
+          startWith(false)
+        ),
         this.actions.reset$.pipe(map(() => false))
       ).pipe(distinctUntilChanged())
     );
     this.state.connect('routine', this.actions.setRoutine$);
 
     this.state.hold(this.routine$, () => this.actions.reset());
-    this.state.hold(this.completed$, (completed: boolean) => {
-      if (completed) this.actions.play(false);
-    });
 
     this.state.connect(
       'currentStepIndex',
@@ -171,8 +174,15 @@ export class Runner implements OnDestroy {
       ).pipe(distinctUntilChanged())
     );
 
-    this.state.hold(this.countdown$.pipe(filter((countdown: number) => countdown === 0)), () =>
-      this.actions.nextStep()
+    this.state.hold(
+      this.countdownComplete$.pipe(withLatestFrom(this.state$)),
+      ([, state]: [void, RunnerState]) => {
+        if (state.currentStepIndex < state.routine.steps.length - 1) {
+          this.actions.nextStep();
+        } else {
+          this.actions.play(false);
+        }
+      }
     );
 
     this.state.hold(

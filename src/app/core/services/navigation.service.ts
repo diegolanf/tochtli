@@ -46,7 +46,7 @@ export class NavigationService {
     this.state.connect(
       this.back$.pipe(
         withLatestFrom(this.historyLength$.pipe(startWith(undefined))),
-        filter(([_, length]: [void, number | undefined]) => length !== undefined && length > 1),
+        filter(([, length]: [void, number | undefined]) => length !== undefined && length > 1),
         tap(() => this.location.back())
       ),
       (oldState: NavigationServiceState) => ({

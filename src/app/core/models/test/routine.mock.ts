@@ -13,7 +13,7 @@ export const MockRoutineDto: RoutineDto = {
     {
       name: 'Activity 2',
       duration: 10,
-      customBreakDuration: 20,
+      customBreakDuration: 5,
       description: 'Description for activity 2',
     },
     {
