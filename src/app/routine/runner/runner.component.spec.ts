@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { RunnerComponent } from './runner.component';
 
@@ -9,6 +10,7 @@ describe('RunnerComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RunnerComponent],
+      providers: [provideMockStore({ initialState: { routine: {} } })],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RunnerComponent);
