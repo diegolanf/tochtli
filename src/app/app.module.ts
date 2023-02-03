@@ -5,10 +5,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { NavigationComponent } from '@app/navigation/navigation.component';
 import { ROUTES } from '@app/routes';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
-import { metaReducers, reducers } from './store';
+import { effects, metaReducers, reducers } from './store';
 import { TranslocoRootModule } from './transloco-root.module';
 
 @NgModule({
@@ -23,6 +24,7 @@ import { TranslocoRootModule } from './transloco-root.module';
     StoreModule.forRoot(reducers, {
       metaReducers,
     }),
+    EffectsModule.forRoot(effects),
   ],
   providers: [],
   bootstrap: [AppComponent],
