@@ -3,6 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { RouterModule } from '@angular/router';
+import { RouteItem } from '@app/core/constants/route.constants';
 import { Routine, RoutineDto } from '@app/core/models/routine';
 import { Runner } from '@app/core/models/runner';
 import { NavigationService } from '@app/core/services/navigation.service';
@@ -39,6 +40,8 @@ import { take } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RunnerComponent {
+  public readonly routinesRoute: string = RouteItem.routines.route;
+
   constructor(
     private readonly store: Store,
     public readonly navigationService: NavigationService,

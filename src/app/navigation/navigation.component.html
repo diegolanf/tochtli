@@ -11,8 +11,8 @@
   <mat-sidenav-container>
     <mat-sidenav #drawer class="flex-col">
       <mat-nav-list class="grow">
-        <ng-container *ngFor="let item of navigationMenuItems">
-          <a mat-list-item [routerLink]="item.link">
+        <ng-container *ngFor="let item of routeItems">
+          <a mat-list-item [routerLink]="item.route">
             <mat-icon matListItemIcon>
               {{ item.icon }}
             </mat-icon>

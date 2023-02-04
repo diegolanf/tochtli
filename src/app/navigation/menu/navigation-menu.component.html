@@ -3,7 +3,7 @@
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu" class="navigation-menu">
-    <a mat-menu-item *ngFor="let item of navigationMenuItems" [routerLink]="item.link">
+    <a mat-menu-item *ngFor="let item of navigationMenuItems" [routerLink]="item.route">
       <mat-icon>
         {{ item.icon }}
       </mat-icon>

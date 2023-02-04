@@ -35,7 +35,7 @@
   <ng-template #noRoutine>
     <div class="flex flex-col px-8 py-10 items-center justify-center">
       <h1 class="leading-10 text-2xl font-thin mb-2">{{ t('routine.runner.title.empty') }}</h1>
-      <a mat-stroked-button color="primary" routerLink="/">
+      <a [routerLink]="routinesRoute" color="primary" mat-stroked-button>
         {{ t('routine.runner.action.back') }}
       </a>
     </div>

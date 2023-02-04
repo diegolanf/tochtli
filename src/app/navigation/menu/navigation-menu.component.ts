@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
-import { NavigationMenuItems } from '@app/navigation/navigation-menu-items.constants';
+import { RouteItems } from '@app/core/constants/route.constants';
 import { SharedModule } from '@app/shared/shared.module';
 import packageInfo from 'package.json';
 
@@ -16,6 +16,6 @@ import packageInfo from 'package.json';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigationMenuComponent {
-  public readonly navigationMenuItems = NavigationMenuItems;
+  public readonly navigationMenuItems = RouteItems;
   public readonly version: string = packageInfo.version;
 }

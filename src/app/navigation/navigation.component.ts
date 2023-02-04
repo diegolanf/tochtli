@@ -5,9 +5,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
+import { RouteItems } from '@app/core/constants/route.constants';
 import { ScreenSizeService } from '@app/core/services/screen-size.service';
 import { NavigationMenuComponent } from '@app/navigation/menu/navigation-menu.component';
-import { NavigationMenuItems } from '@app/navigation/navigation-menu-items.constants';
 import { SharedModule } from '@app/shared/shared.module';
 import { RxEffects } from '@rx-angular/state/effects';
 import { PushModule } from '@rx-angular/template/push';
@@ -37,7 +37,7 @@ export class NavigationComponent {
   @ViewChild('drawer') public sidenav?: MatSidenav;
 
   public readonly mdDown$: Observable<boolean> = this.screenSizeService.mdDown$;
-  public readonly navigationMenuItems = NavigationMenuItems;
+  public readonly routeItems = RouteItems;
   public readonly version: string = packageInfo.version;
 
   constructor(
