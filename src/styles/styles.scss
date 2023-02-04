@@ -69,3 +69,13 @@ body {
 .page-content {
   padding: 20px;
 }
+
+// Fix icon button not being centered
+.mdc-icon-button mat-icon {
+  display: flex;
+}
+
+// Adjust letter spacing in button labels
+.mdc-button__label {
+  letter-spacing: 0px;
+}

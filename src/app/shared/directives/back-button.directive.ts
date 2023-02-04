@@ -6,10 +6,10 @@ import { NavigationService } from '@app/core/services/navigation.service';
   standalone: true,
 })
 export class BackButtonDirective {
-  constructor(private navigation: NavigationService) {}
+  constructor(private navigationService: NavigationService) {}
 
   @HostListener('click')
   public onClick(): void {
-    this.navigation.back();
+    this.navigationService.back();
   }
 }

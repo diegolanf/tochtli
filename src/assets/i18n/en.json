@@ -4,8 +4,11 @@
   "navigation.myRoutines": "My routines",
   "navigation.runner": "Runner",
   "routine.model.break": "Break",
+  "routine.runner.action.back": "Back to my routines",
   "routine.runner.description.endOfRoutine": "End of routine",
   "routine.runner.description.from": " from ",
   "routine.runner.description.next": "Next",
-  "routine.runner.description.routineCompleted": "Routine completed"
+  "routine.runner.description.routineCompleted": "Routine completed",
+  "routine.runner.title.empty": "No active routine",
+  "routine.runner.title.routine": "Routine: "
 }

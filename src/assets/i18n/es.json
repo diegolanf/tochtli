@@ -4,8 +4,11 @@
   "navigation.myRoutines": "Mis rutinas",
   "navigation.runner": "Cronómetro",
   "routine.model.break": "Pausa",
+  "routine.runner.action.back": "Regresar a mis rutinas",
   "routine.runner.description.endOfRoutine": "Fin de la rutina",
   "routine.runner.description.from": " de ",
   "routine.runner.description.next": "Siguiente",
-  "routine.runner.description.routineCompleted": "Rutina completada"
+  "routine.runner.description.routineCompleted": "Rutina completada",
+  "routine.runner.title.empty": "Ninguna rutina activada",
+  "routine.runner.title.routine": "Rutina: "
 }

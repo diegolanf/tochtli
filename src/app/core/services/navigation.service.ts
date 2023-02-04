@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { RxState } from '@rx-angular/state';
 import { RxActionFactory } from '@rx-angular/state/actions';
-import { filter, map, Observable, startWith, tap, withLatestFrom } from 'rxjs';
+import { filter, map, Observable, of, startWith, tap, withLatestFrom } from 'rxjs';
 
 interface NavigationServiceState {
   history: string[];
@@ -57,5 +57,9 @@ export class NavigationService {
 
   public back(): void {
     this.actions.back();
+  }
+
+  public init(): Observable<void> {
+    return of();
   }
 }
