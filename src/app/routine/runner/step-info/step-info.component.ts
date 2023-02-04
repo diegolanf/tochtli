@@ -39,7 +39,7 @@ export class StepInfoComponent implements OnInit {
         combineLatest([this.runner.completed$, this.runner.currentStep$]).pipe(
           map(([completed, routineStep]: [boolean, RoutineStep | undefined]) =>
             completed
-              ? 'routine.runner.description.routineCompleted'
+              ? 'routine.runner.info.routineCompleted'
               : routineStep
               ? routineStep.name
               : '-'
@@ -51,11 +51,7 @@ export class StepInfoComponent implements OnInit {
         'nextStep',
         combineLatest([this.runner.completed$, this.runner.nextStep$]).pipe(
           map(([completed, routineStep]: [boolean, RoutineStep | undefined]) =>
-            completed
-              ? '-'
-              : routineStep
-              ? routineStep.name
-              : 'routine.runner.description.endOfRoutine'
+            completed ? '-' : routineStep ? routineStep.name : 'routine.runner.info.endOfRoutine'
           )
         )
       );

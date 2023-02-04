@@ -44,6 +44,7 @@ export interface RoutineStep {
 }
 
 export class Routine {
+  public dto: RoutineDto;
   public id: string;
   public name: string;
   public activities: Activity[];
@@ -51,6 +52,7 @@ export class Routine {
   public metadata: RoutineMetadata;
 
   constructor(routine: RoutineDto) {
+    this.dto = routine;
     this.id = routine.id;
     this.name = routine.name;
     this.activities = routine.activities.map(convertDtoToActivity);

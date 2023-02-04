@@ -4,16 +4,13 @@
       {{ t(currentStep$ | push) }}
     </div>
     <div class="text-xl opacity-40">
-      {{ t('routine.runner.description.next') }}:
+      {{ t('routine.runner.info.next') }}:
       {{ t(nextStep$ | push) }}
     </div>
     <ng-container *rxLet="totalSteps$; let totalSteps">
       <div *ngIf="totalSteps > 0" class="mt-2">
         {{
-          ((runner.currentStepIndex$ | push) ?? 0) +
-            1 +
-            t('routine.runner.description.from') +
-            totalSteps
+          ((runner.currentStepIndex$ | push) ?? 0) + 1 + t('routine.runner.info.from') + totalSteps
         }}
       </div>
     </ng-container>

@@ -1,7 +1,7 @@
 <ng-container *transloco="let t">
   <ng-container *ngIf="runner.routine$ | push as routine; else noRoutine">
     <mat-progress-bar [value]="runner.progress$ | push"></mat-progress-bar>
-    <div class="flex flex-row px-8 pt-10 pb-2 items-center">
+    <div class="flex flex-row px-8 pt-5 items-center">
       <button
         *ngIf="(navigationService.historyLength$ | push) > 1"
         appBackButton
@@ -10,14 +10,14 @@
         mat-icon-button>
         <mat-icon class="block">chevron_left</mat-icon>
       </button>
-      <h1 class="leading-10 text-2xl font-thin">
+      <h1 class="leading-10 text-2xl m-0 font-thin">
         <span class="opacity-60">
           {{ t('routine.runner.title.routine') }}
         </span>
         {{ routine.name }}
       </h1>
     </div>
-    <div class="flex flex-col sm:flex-row items-center sm:items-start">
+    <div class="flex flex-col sm:flex-row items-center sm:items-start pb-5">
       <app-runner-timer [runner]="runner" class="p-6"></app-runner-timer>
       <div
         class="flex flex-col px-10 sm:p-6 justify-center lg:justify-start sm:min-h-[290px] w-full min-w-[350px]">
@@ -33,7 +33,7 @@
     </div>
   </ng-container>
   <ng-template #noRoutine>
-    <div class="flex flex-col px-8 py-10 items-center justify-center">
+    <div class="flex flex-col p-5 items-center justify-center">
       <h1 class="leading-10 text-2xl font-thin mb-2">{{ t('routine.runner.title.empty') }}</h1>
       <a [routerLink]="routinesRoute" color="primary" mat-stroked-button>
         {{ t('routine.runner.action.back') }}
