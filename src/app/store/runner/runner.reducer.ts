@@ -26,7 +26,7 @@ export const runnerReducer = createReducer(
     })
   ),
   on(
-    RunnerActions.setCountDown,
+    RunnerActions.setCountdown,
     (state: RunnerState, { countdown }: { countdown: number }): RunnerState => ({
       ...state,
       countdown,

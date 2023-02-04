@@ -12,7 +12,7 @@ import { RunnerStepperComponent } from '@app/routine/runner/stepper/runner-stepp
 import { RunnerTimerComponent } from '@app/routine/runner/timer/runner-timer.component';
 import { BackButtonDirective } from '@app/shared/directives/back-button.directive';
 import { SharedModule } from '@app/shared/shared.module';
-import { RunnerState, selectRunner, setCountDown, setStep } from '@app/store/runner';
+import { RunnerState, selectRunner, setCountdown, setStep } from '@app/store/runner';
 import { Store } from '@ngrx/store';
 import { RxEffects } from '@rx-angular/state/effects';
 import { LetModule } from '@rx-angular/template/let';
@@ -54,6 +54,8 @@ export class RunnerComponent {
       (runnerState: RunnerState) => {
         if (runnerState.routine) {
           this.runner.routine = new Routine(runnerState.routine);
+          if (runnerState.step) this.runner.jumpToStep(runnerState.step);
+          if (runnerState.countdown) this.runner.setCountdown(runnerState.countdown);
         }
       }
     );
@@ -63,7 +65,7 @@ export class RunnerComponent {
     );
 
     this.effects.register(this.runner.countdown$, (countdown: number) =>
-      this.store.dispatch(setCountDown({ countdown }))
+      this.store.dispatch(setCountdown({ countdown }))
     );
   }
 }

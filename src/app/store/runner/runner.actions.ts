@@ -7,4 +7,4 @@ export const resetRunner = createAction('[Runner] Reset');
 
 export const setStep = createAction('[Runner] Set step', props<{ step: number }>());
 
-export const setCountDown = createAction('[Runner] Set countdown', props<{ countdown: number }>());
+export const setCountdown = createAction('[Runner] Set countdown', props<{ countdown: number }>());
