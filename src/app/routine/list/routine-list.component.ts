@@ -7,10 +7,15 @@ import { MyRoutines } from '@app/core/constants/my-routines.constants';
 import { Routine, RoutineDto } from '@app/core/models/routine';
 import { SecondsToTimePipe } from '@app/shared/pipes/seconds-to-time.pipe';
 import { SharedModule } from '@app/shared/shared.module';
-import { selectRoutineDto, setRotuine } from '@app/store/routine';
+import { selectRunnerRoutine, setRoutine } from '@app/store/runner';
 import { Store } from '@ngrx/store';
+import { RxState } from '@rx-angular/state';
 import { PushModule } from '@rx-angular/template/push';
 import { Observable } from 'rxjs';
+
+export interface RoutineListComponentState {
+  activeRoutine?: RoutineDto;
+}
 
 @Component({
   selector: 'app-routine-list',
@@ -25,6 +30,7 @@ import { Observable } from 'rxjs';
   ],
   templateUrl: './routine-list.component.html',
   styleUrls: ['./routine-list.component.scss'],
+  providers: [RxState],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RoutineListComponent {
@@ -35,12 +41,21 @@ export class RoutineListComponent {
     (routine: RoutineDto) => new Routine(routine)
   );
 
-  constructor(private readonly router: Router, private readonly store: Store) {
-    this.activeRoutine$ = this.store.select(selectRoutineDto);
+  constructor(
+    private readonly router: Router,
+    private readonly state: RxState<RoutineListComponentState>,
+    private readonly store: Store
+  ) {
+    this.state.connect('activeRoutine', this.store.select(selectRunnerRoutine));
+    this.activeRoutine$ = this.state.select('activeRoutine');
   }
 
   public selectRoutine(routine: Routine): void {
-    this.store.dispatch(setRotuine({ routine: routine.dto }));
+    const activeRoutine = this.state.get('activeRoutine');
+    if (routine.id !== activeRoutine?.id) {
+      this.store.dispatch(setRoutine({ routine: routine.dto }));
+    }
+
     this.router.navigate(['runner']);
   }
 }

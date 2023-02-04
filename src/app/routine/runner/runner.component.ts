@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { RouterModule } from '@angular/router';
 import { RouteItem } from '@app/core/constants/route.constants';
-import { Routine, RoutineDto } from '@app/core/models/routine';
+import { Routine } from '@app/core/models/routine';
 import { Runner } from '@app/core/models/runner';
 import { NavigationService } from '@app/core/services/navigation.service';
 import { StepInfoComponent } from '@app/routine/runner/step-info/step-info.component';
@@ -12,8 +12,9 @@ import { RunnerStepperComponent } from '@app/routine/runner/stepper/runner-stepp
 import { RunnerTimerComponent } from '@app/routine/runner/timer/runner-timer.component';
 import { BackButtonDirective } from '@app/shared/directives/back-button.directive';
 import { SharedModule } from '@app/shared/shared.module';
-import { selectRoutineDto } from '@app/store/routine';
+import { RunnerState, selectRunner, setCountDown, setStep } from '@app/store/runner';
 import { Store } from '@ngrx/store';
+import { RxEffects } from '@rx-angular/state/effects';
 import { LetModule } from '@rx-angular/template/let';
 import { PushModule } from '@rx-angular/template/push';
 import { take } from 'rxjs';
@@ -36,7 +37,7 @@ import { take } from 'rxjs';
   ],
   templateUrl: './runner.component.html',
   styleUrls: ['./runner.component.scss'],
-  providers: [Runner],
+  providers: [Runner, RxEffects],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RunnerComponent {
@@ -44,14 +45,25 @@ export class RunnerComponent {
 
   constructor(
     private readonly store: Store,
+    private readonly effects: RxEffects,
     public readonly navigationService: NavigationService,
     public readonly runner: Runner
   ) {
-    this.store
-      .select(selectRoutineDto)
-      .pipe(take(1))
-      .subscribe((dto?: RoutineDto) => {
-        if (dto) this.runner.routine = new Routine(dto);
-      });
+    this.effects.register(
+      this.store.select(selectRunner).pipe(take(1)),
+      (runnerState: RunnerState) => {
+        if (runnerState.routine) {
+          this.runner.routine = new Routine(runnerState.routine);
+        }
+      }
+    );
+
+    this.effects.register(this.runner.currentStepIndex$, (step: number) =>
+      this.store.dispatch(setStep({ step }))
+    );
+
+    this.effects.register(this.runner.countdown$, (countdown: number) =>
+      this.store.dispatch(setCountDown({ countdown }))
+    );
   }
 }
