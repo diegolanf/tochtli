@@ -1,6 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { RxState } from '@rx-angular/state';
 import { RxActionFactory } from '@rx-angular/state/actions';
+import { Howl } from 'howler';
 import {
   distinctUntilChanged,
   EMPTY,
@@ -55,6 +56,19 @@ export class Runner implements OnDestroy {
   private readonly factory = new RxActionFactory<RunnerActions>();
   private readonly state = new RxState<RunnerState>();
   private readonly state$: Observable<RunnerState> = this.state.select();
+
+  private soundFile: 'short-pluck' | 'micro-pulse' | 'dirty-pulse' = 'dirty-pulse';
+  private volume = 0.5;
+
+  private ready = new Howl({
+    src: [`assets/sounds/${this.soundFile}-ready.m4a`],
+    volume: this.volume,
+  });
+
+  private go = new Howl({
+    src: [`assets/sounds/${this.soundFile}-go.m4a`],
+    volume: this.volume,
+  });
 
   private readonly actions = this.factory.create();
 
@@ -175,9 +189,15 @@ export class Runner implements OnDestroy {
     );
 
     this.state.hold(
+      this.countdown$.pipe(filter((countdown: number) => countdown <= 3 && countdown !== 0)),
+      () => this.ready.play()
+    );
+
+    this.state.hold(
       this.countdownComplete$.pipe(withLatestFrom(this.state$)),
       ([, state]: [void, RunnerState]) => {
         if (state.currentStepIndex < state.routine.steps.length - 1) {
+          this.go.play();
           this.actions.nextStep();
         } else {
           this.actions.play(false);
