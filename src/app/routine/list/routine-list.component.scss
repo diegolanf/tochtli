@@ -9,6 +9,10 @@
     mat-selection-list {
       padding: 0;
 
+      .routine-info {
+        width: calc(100% - 24px);
+      }
+
       ::ng-deep mat-list-item {
         .mat-mdc-list-item-icon {
           margin-top: 20px;
@@ -23,7 +27,11 @@
           }
 
           .mat-mdc-list-item-title {
-            display: flex;
+            &:before {
+              display: none;
+            }
+
+            display: inline-block;
             height: 20px;
             line-height: 20px;
             margin: 0;

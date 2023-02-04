@@ -62,8 +62,8 @@ export class RunnerTimerComponent implements OnInit {
             (step?: RoutineStep) =>
               this.runner?.countdown$.pipe(
                 map(
-                  (countDown: number) =>
-                    (countDown * 100) / (step ? step.duration.as('seconds') : 1)
+                  (countdown: number) =>
+                    (countdown * 100) / (step ? step.duration.as('seconds') : 1)
                 )
               ) ?? of(0)
           )

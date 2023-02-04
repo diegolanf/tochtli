@@ -31,6 +31,7 @@ export interface RunnerActions {
   nextStep: void;
   previousStep: void;
   restartStep: void;
+  jumpToStep: number;
   reset: void;
   setRoutine: Routine;
   setCoundown: number;
@@ -145,8 +146,14 @@ export class Runner implements OnDestroy {
 
     this.state.connect(
       'currentStepIndex',
-      this.actions.reset$.pipe(
-        switchMap(() =>
+      merge(
+        this.actions.jumpToStep$,
+        this.actions.reset$.pipe(
+          map(() => 0),
+          startWith(0)
+        )
+      ).pipe(
+        switchMap((jumpToStep: number) =>
           merge(
             this.actions.nextStep$.pipe(
               withLatestFrom(this.currentStepIndex$, this.routineLength$),
@@ -160,7 +167,7 @@ export class Runner implements OnDestroy {
             )
           ).pipe(
             startWith(0),
-            scan((currentStep: number, change: number) => currentStep + change, 0)
+            scan((currentStep: number, change: number) => currentStep + change, jumpToStep)
           )
         ),
         distinctUntilChanged()
@@ -214,6 +221,12 @@ export class Runner implements OnDestroy {
     );
   }
 
+  private get currentStepDuration(): number | undefined {
+    return this.state
+      .get('routine')
+      ?.steps[this.state.get('currentStepIndex')].duration.as('seconds');
+  }
+
   public set routine(routine: Routine) {
     this.actions.setRoutine(routine);
   }
@@ -244,16 +257,20 @@ export class Runner implements OnDestroy {
     if (this.state.get('currentStepIndex') === 0) {
       this.actions.reset();
     } else {
-      if (
-        this.state
-          .get('routine')
-          .steps[this.state.get('currentStepIndex')].duration.as('seconds') !==
-        this.state.get('countdown')
-      ) {
+      if (this.currentStepDuration !== this.state.get('countdown')) {
         this.actions.restartStep();
       } else {
         this.actions.previousStep();
       }
     }
+  }
+
+  public jumpToStep(step: number): void {
+    if (step < this.state.get('routine').steps.length) this.actions.jumpToStep(step);
+  }
+
+  public setCountdown(countdown: number): void {
+    if (this.currentStepDuration && countdown <= this.currentStepDuration)
+      this.actions.setCoundown(countdown);
   }
 }
