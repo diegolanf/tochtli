@@ -1,0 +1,53 @@
+@use '@angular/material' as mat;
+@use 'mixins/shapes' as shapes;
+@use 'sass:map';
+
+:host {
+  button {
+    @include shapes.no-shadow;
+
+    &.play {
+      @include shapes.border-radius($only-left: true, $r: 20px);
+
+      ::ng-deep span {
+        @include shapes.border-radius($only-left: true, $r: 20px);
+      }
+    }
+
+    &.pause {
+      @include shapes.border-radius($only-right: true, $r: 20px);
+
+      ::ng-deep span {
+        @include shapes.border-radius($only-right: true, $r: 20px);
+      }
+    }
+  }
+
+  ::ng-deep mat-progress-spinner circle {
+    stroke-linecap: round;
+  }
+}
+
+@mixin color($theme) {
+  $color-config: mat.get-color-config($theme);
+  $bg-palette: map.get($color-config, 'background');
+
+  .background-doughnut {
+    position: absolute;
+    opacity: 0.2;
+    @include shapes.doughnut(
+      $border: 35px,
+      $color: mat.get-color-from-palette($bg-palette, 'status-bar'),
+      $size: 170px
+    );
+  }
+
+  .shadow-doughnut {
+    opacity: 0.4;
+    @include shapes.doughnut(
+      $border: 15px,
+      $color: mat.get-color-from-palette($bg-palette, 'status-bar'),
+      $size: 150px
+    );
+  }
+}

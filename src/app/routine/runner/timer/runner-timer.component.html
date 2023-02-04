@@ -1,0 +1,53 @@
+<div *ngIf="runner" class="flex flex-col items-center h-fit w-fit">
+  <div class="p-2 flex gap-2">
+    <button
+      (click)="runner.previous()"
+      [disabled]="(runner.initialState$ | push) || (isEmpty$ | push)"
+      color="primary"
+      mat-mini-fab>
+      <mat-icon>skip_previous</mat-icon>
+    </button>
+    <div class="flex gap-1">
+      <button
+        (click)="runner.play()"
+        [disabled]="(runner.playing$ | push) || (runner.completed$ | push) || (isEmpty$ | push)"
+        class="play"
+        color="primary"
+        mat-mini-fab>
+        <mat-icon>play_arrow</mat-icon>
+      </button>
+      <button
+        (click)="runner.pause()"
+        [disabled]="(runner.playing$ | push) !== true"
+        class="pause"
+        color="primary"
+        mat-mini-fab>
+        <mat-icon>pause</mat-icon>
+      </button>
+    </div>
+    <button
+      (click)="runner.next()"
+      [disabled]="(runner.completed$ | push) || (isEmpty$ | push)"
+      color="primary"
+      mat-mini-fab>
+      <mat-icon>skip_next</mat-icon>
+    </button>
+  </div>
+  <div class="relative h-170 w-170 m-2">
+    <div class="absolute flex items-center justify-center h-full w-full">
+      <span class="max-w-[50%] text-ellipsis overflow-hidden font-mono font-thin select-none">
+        {{ runner.countdown$ | push | secondsToTime }}
+      </span>
+    </div>
+    <span class="background-doughnut absolute"></span>
+    <div class="p-[10px]">
+      <span class="shadow-doughnut absolute p-[5px]"></span>
+      <mat-progress-spinner
+        [color]="(isBreak$ | push) ? 'accent' : 'primary'"
+        [diameter]="150"
+        [value]="spinnerValue$ | push"
+        class="progress"
+        mode="determinate"></mat-progress-spinner>
+    </div>
+  </div>
+</div>

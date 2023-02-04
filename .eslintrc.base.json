@@ -19,6 +19,7 @@
         "arrow-parens": "warn",
         "arrow-spacing": "warn",
         "eqeqeq": ["error", "smart"],
+        "spaced-comment": ["error", "always"],
         "import/no-absolute-path": "error",
         "import/no-cycle": "error",
         "import/no-self-import": "error",
@@ -27,7 +28,7 @@
         "no-console": [
           "warn",
           {
-            "allow": ["warn", "error", "info"]
+            "allow": ["warn", "error", "info", "debug"]
           }
         ],
         "simple-import-sort/imports": "error",

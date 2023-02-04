@@ -1,0 +1,17 @@
+{
+  "general.version": "Version: {{version}}",
+  "navigation.explore": "Explore",
+  "navigation.myRoutines": "My routines",
+  "navigation.runner": "Runner",
+  "routine.list.routine.metadata": " activities — Total duration: ",
+  "routine.model.break": "Break",
+  "routine.runner.action.back": "Back to my routines",
+  "routine.runner.info.endOfRoutine": "End of routine",
+  "routine.runner.info.from": " from ",
+  "routine.runner.info.next": "Next",
+  "routine.runner.info.routineCompleted": "Routine completed",
+  "routine.runner.list.routine.metadata": " actovotoes",
+  "routine.runner.list.routine.totalDuration": "",
+  "routine.runner.title.empty": "No active routine",
+  "routine.runner.title.routine": "Routine: "
+}

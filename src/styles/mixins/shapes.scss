@@ -1,0 +1,32 @@
+$default-radius: 4px;
+
+@mixin border-radius(
+  $only-right: false,
+  $only-left: false,
+  $only-top: false,
+  $only-bottom: false,
+  $r: $default-radius
+) {
+  @if $only-right {
+    border-radius: 0 $r $r 0;
+  } @else if $only-left {
+    border-radius: $r 0 0 $r;
+  } @else if $only-top {
+    border-radius: $r $r 0 0;
+  } @else if $only-bottom {
+    border-radius: 0 0 $r $r;
+  } @else {
+    border-radius: $r;
+  }
+}
+
+@mixin doughnut($border, $color, $size) {
+  border: $border solid $color;
+  border-radius: $size;
+  height: $size;
+  width: $size;
+}
+
+@mixin no-shadow {
+  box-shadow: none !important;
+}

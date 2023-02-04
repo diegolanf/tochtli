@@ -1,0 +1,43 @@
+@use '@angular/material' as mat;
+@use 'mixins/shapes' as shapes;
+
+:host {
+  mat-card {
+    @include mat.elevation(0);
+    @include shapes.border-radius($r: 10px);
+
+    mat-selection-list {
+      padding: 0;
+
+      ::ng-deep mat-list-item {
+        .mat-mdc-list-item-icon {
+          margin-top: 20px;
+          margin-left: 20px;
+        }
+
+        .mat-mdc-list-item-unscoped-content {
+          height: 64px;
+
+          &:before {
+            display: none;
+          }
+
+          .mat-mdc-list-item-title {
+            display: flex;
+            height: 20px;
+            line-height: 20px;
+            margin: 0;
+          }
+        }
+      }
+    }
+
+    mat-list-item:first-child {
+      @include shapes.border-radius($only-top: true, $r: 10px);
+    }
+
+    mat-list-item:last-child {
+      @include shapes.border-radius($only-bottom: true, $r: 10px);
+    }
+  }
+}
