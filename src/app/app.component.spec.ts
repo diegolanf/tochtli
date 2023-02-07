@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { RunnerComponent } from '@app/routine/runner/runner.component';
 import { provideMockStore } from '@ngrx/store/testing';
 
 import { AppComponent } from './app.component';
@@ -15,7 +14,7 @@ describe('AppComponent', () => {
       providers: [provideMockStore({ initialState: { routine: {} } })],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(RunnerComponent);
+    fixture = TestBed.createComponent(AppComponent);
     app = fixture.componentInstance;
     fixture.detectChanges();
   });
