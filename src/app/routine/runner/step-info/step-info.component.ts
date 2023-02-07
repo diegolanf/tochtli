@@ -1,7 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
 import { Routine, RoutineStep } from '@app/core/models/routine';
 import { Runner } from '@app/core/models/runner';
-import { SharedModule } from '@app/shared/shared.module';
+import { TranslocoModule } from '@ngneat/transloco';
 import { RxState } from '@rx-angular/state';
 import { LetModule } from '@rx-angular/template/let';
 import { PushModule } from '@rx-angular/template/push';
@@ -16,7 +17,7 @@ export interface StepInfoComponentState {
 @Component({
   selector: 'app-step-info',
   standalone: true,
-  imports: [LetModule, PushModule, SharedModule],
+  imports: [CommonModule, LetModule, PushModule, TranslocoModule],
   templateUrl: './step-info.component.html',
   styleUrls: ['./step-info.component.scss'],
   providers: [RxState],

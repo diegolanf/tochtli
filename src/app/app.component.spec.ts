@@ -1,21 +1,26 @@
-import { TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NavigationComponent } from '@app/navigation/navigation.component';
+import { RunnerComponent } from '@app/routine/runner/runner.component';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
+  let app: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NavigationComponent, NoopAnimationsModule, RouterTestingModule],
-      declarations: [AppComponent],
+      imports: [AppComponent, RouterTestingModule],
+      providers: [provideMockStore({ initialState: { routine: {} } })],
     }).compileComponents();
+
+    fixture = TestBed.createComponent(RunnerComponent);
+    app = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 });

@@ -1,10 +1,10 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { RoutineStep } from '@app/core/models/routine';
 import { Runner } from '@app/core/models/runner';
-import { SharedModule } from '@app/shared/shared.module';
 import { RxEffects } from '@rx-angular/state/effects';
 import { LetModule } from '@rx-angular/template/let';
 import { PushModule } from '@rx-angular/template/push';
@@ -12,7 +12,7 @@ import { PushModule } from '@rx-angular/template/push';
 @Component({
   selector: 'app-runner-stepper',
   standalone: true,
-  imports: [LetModule, MatIconModule, MatStepperModule, PushModule, SharedModule],
+  imports: [CommonModule, LetModule, MatIconModule, MatStepperModule, PushModule],
   templateUrl: './runner-stepper.component.html',
   styleUrls: ['./runner-stepper.component.scss'],
   providers: [

@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -5,9 +6,9 @@ import { MatListModule } from '@angular/material/list';
 import { Router } from '@angular/router';
 import { MyRoutines } from '@app/core/constants/my-routines.constants';
 import { Routine, RoutineDto } from '@app/core/models/routine';
-import { SecondsToTimePipe } from '@app/shared/pipes/seconds-to-time.pipe';
-import { SharedModule } from '@app/shared/shared.module';
+import { SecondsToTimePipe } from '@app/shared';
 import { selectRunnerRoutine, setRoutine } from '@app/store/runner';
+import { TranslocoModule } from '@ngneat/transloco';
 import { Store } from '@ngrx/store';
 import { RxState } from '@rx-angular/state';
 import { PushModule } from '@rx-angular/template/push';
@@ -21,12 +22,13 @@ export interface RoutineListComponentState {
   selector: 'app-routine-list',
   standalone: true,
   imports: [
+    CommonModule,
     MatCardModule,
     MatIconModule,
     MatListModule,
     PushModule,
     SecondsToTimePipe,
-    SharedModule,
+    TranslocoModule,
   ],
   templateUrl: './routine-list.component.html',
   styleUrls: ['./routine-list.component.scss'],

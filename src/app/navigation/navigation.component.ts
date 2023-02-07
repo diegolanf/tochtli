@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,7 +9,7 @@ import { RouterModule } from '@angular/router';
 import { RouteItems } from '@app/core/constants/route.constants';
 import { ScreenSizeService } from '@app/core/services/screen-size.service';
 import { NavigationMenuComponent } from '@app/navigation/menu/navigation-menu.component';
-import { SharedModule } from '@app/shared/shared.module';
+import { TranslocoModule } from '@ngneat/transloco';
 import { RxEffects } from '@rx-angular/state/effects';
 import { PushModule } from '@rx-angular/template/push';
 import packageInfo from 'package.json';
@@ -18,6 +19,7 @@ import { Observable } from 'rxjs';
   selector: 'app-navigation',
   standalone: true,
   imports: [
+    CommonModule,
     MatButtonModule,
     MatIconModule,
     MatListModule,
@@ -26,7 +28,7 @@ import { Observable } from 'rxjs';
     NavigationMenuComponent,
     PushModule,
     RouterModule,
-    SharedModule,
+    TranslocoModule,
   ],
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
