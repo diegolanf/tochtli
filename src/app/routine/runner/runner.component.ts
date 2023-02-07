@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,9 +11,9 @@ import { NavigationService } from '@app/core/services/navigation.service';
 import { StepInfoComponent } from '@app/routine/runner/step-info/step-info.component';
 import { RunnerStepperComponent } from '@app/routine/runner/stepper/runner-stepper.component';
 import { RunnerTimerComponent } from '@app/routine/runner/timer/runner-timer.component';
-import { BackButtonDirective } from '@app/shared/directives/back-button.directive';
-import { SharedModule } from '@app/shared/shared.module';
+import { BackButtonDirective } from '@app/shared';
 import { RunnerState, selectRunner, setCountdown, setStep } from '@app/store/runner';
+import { TranslocoModule } from '@ngneat/transloco';
 import { Store } from '@ngrx/store';
 import { RxEffects } from '@rx-angular/state/effects';
 import { LetModule } from '@rx-angular/template/let';
@@ -24,6 +25,7 @@ import { take } from 'rxjs';
   standalone: true,
   imports: [
     BackButtonDirective,
+    CommonModule,
     LetModule,
     MatButtonModule,
     MatIconModule,
@@ -32,8 +34,8 @@ import { take } from 'rxjs';
     RouterModule,
     RunnerStepperComponent,
     RunnerTimerComponent,
-    SharedModule,
     StepInfoComponent,
+    TranslocoModule,
   ],
   templateUrl: './runner.component.html',
   styleUrls: ['./runner.component.scss'],

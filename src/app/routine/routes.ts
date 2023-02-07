@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/typedef */
 import { Route } from '@angular/router';
 import { RouteItem } from '@app/core/constants/route.constants';
-import { removeLeadingSlash } from '@app/shared/utils/string-utils';
+import { removeLeadingSlash } from '@app/shared';
 
 export const ROUTINE_ROUTES: Route[] = [
   {

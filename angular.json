@@ -3,7 +3,8 @@
   "schematics": {
     "@schematics/angular": {
       "component": {
-        "changeDetection": "OnPush"
+        "changeDetection": "OnPush",
+        "standalone": true
       }
     }
   },
